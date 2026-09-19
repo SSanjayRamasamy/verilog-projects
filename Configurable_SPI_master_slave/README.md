@@ -361,7 +361,7 @@ The core waveform demonstrations can be organized as two cases per SPI mode:
 
 ---
 
-## 15. Automated Checking
+## 16. Automated Checking
 
 The testbench checks:
 
@@ -389,27 +389,21 @@ results/simulation.log
 
 | Metric | Result |
 |---|---:|
-| LUTs | TBD |
-| Flip-Flops | TBD |
-| DSPs | TBD |
-| BRAMs | TBD |
-| I/O | TBD |
-| WNS | TBD |
-| Fmax | TBD |
-| Power | TBD |
+| LUTs | 1097 |
+| Flip-Flops | 190 |
+| DSPs | 1 |
+| I/O | 81 |
+| BUFG | 1 |
 
 ### Vivado — SPI Slave
 
 | Metric | Result |
 |---|---:|
-| LUTs | TBD |
-| Flip-Flops | TBD |
-| DSPs | TBD |
-| BRAMs | TBD |
-| I/O | TBD |
-| WNS | TBD |
-| Fmax | TBD |
-| Power | TBD |
+| LUTs | 98 |
+| Flip-Flops | 106 |
+| I/O | 10 |
+| BUFG | 1 |
+
 
 ### Cadence Genus — SPI Master
 
@@ -442,6 +436,16 @@ results/simulation.log
 
 ---
 
+## 19. Limitation
+
+- Due to integer division the SPI clock frequency might be greater than the required SPI clock frquency if the System clock frequency is not divisible by spi clock frequency.
+- Minimum four system clock cylces are required for every spi clock for proper fsm operation.
+- Single master and single slave architecture.
+- Limited register and even those are dummy registers.
+- Fixed transaction size of 8/16-bit data.
+- Multiple SPI Slave support
+
+---
 
 ## 20. Future Improvements
 
@@ -457,7 +461,7 @@ results/simulation.log
 
 ## 21. Author
 
-**Sanjay**  
+**S Sanjay Ramasamy**  
 B.Tech Electrical and Electronics Engineering, VIT Vellore (final-year)
 
 Interests: RTL Design, Digital VLSI, FPGA Design, ASIC Design, Computer Architecture, and Hardware Verification.
