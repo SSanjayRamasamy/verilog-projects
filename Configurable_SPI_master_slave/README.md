@@ -60,7 +60,7 @@ configurable-spi-master-slave/
 | Reset                       |        Active Low        |
 | SPI Modes                   |            0–3           |
 | Data Width                  |       8 / 16 bits        |
-| SPI Clock Range             | 1 Hz to System Clock / 4 (eg. for system clock=50Mhz the maximum spi clock frequency is 50Mhz/4 ie. 12.5Mhz) |
+| SPI Clock Range             | 1 Hz to System Clock / 4 (eg. for system clock=50MHz the <br>maximum spi clock frequency is 50MHz/4 ie. 12.5MHz) |
 | Chip Select                 |        Active Low        |
 | Communication               |        Full Duplex       |
 
@@ -113,31 +113,25 @@ For a read, the Master transmits dummy data during the data phase and receives t
 
 ## 6. Master Interface
 
-| Signal | Description |
-|---|---|
-| `clk` | 50 MHz system clock (parameterised) |
-| `rst` | Active-low reset |
-| `start` | Starts a transaction |
-| `spi_mode[1:0]` | SPI mode selection:<br>`2'b00` → Mode 0<br>`2'b01` → Mode 1<br>`2'b10` → Mode 2<br>`2'b11` → Mode 3 |
-| `bit_width` | `0` = 8-bit, `1` = 16-bit |
-| `s_clk_freq[24:0]` | Requested SPI clock frequency |
-| `data_to_slave[15:0]` | Write data |
-| `write` | Read/write selection |
-| `slave_addr[6:0]` | Register address |
-| `busy` | Transaction active |
-| `done` | Transaction complete |
-| `err_e[2:0]` | Error code |
-| `data_from_slave[15:0]` | Received data |
-
-### Mode Encoding
-
-```text
-2'b00 → Mode 0
-2'b01 → Mode 1
-2'b10 → Mode 2
-2'b11 → Mode 3
-```
-
+| Signal | Direction | Description |
+|---|---|---|
+| `clk` | System Clock to Master | 50 MHz system clock (parameterised) |
+| `rst` | External to Master | Active-low reset |
+| `start` | External to Master | Starts a transaction <br>`1'b0` → no new transaction <br>`1'b1` → starts a new transaction |
+| `spi_mode[1:0]` | External to Master | SPI mode selection:<br>`2'b00` → Mode 0<br>`2'b01` → Mode 1<br>`2'b10` → Mode 2<br>`2'b11` → Mode 3 |
+| `bit_width` | External to Master | `1'b0` = 8-bit <br> `1'b1` = 16-bit |
+| `s_clk_freq[25:0]` | External to Master | Requested SPI clock frequency |
+| `data_to_slave[15:0]` | External to Master | Write data |
+| `write` | External to Master | Read/write selection <br>`1'b0` → to read data from slave registers <br>`1'b1` → to write data to slave registers|
+| `slave_addr[6:0]` | External to Master | Register address <br>`'h00` → Device ID <br>`'h01` → Control Register <br>`'h02` → Status Register <br>`'h03` → Data Register |
+| `busy` | Master to External | Transaction active <br>`1'b0` → ready for new transaction <br>`1'b1` → a transaction is active, cannot start a new transaction |
+| `done` | Master to External | Transaction complete <br>`1'b0` → shift register is not ready to be sampled <br>`1'b1` → the shift register is ready to be sampled |
+| `err_e[2:0]` | Master to External | Error code: <br>`3'b000` → no error <br>`3'b001` → Timeout <br>`3'b010` → Invalid Register <br>`3'b011` → cs asserted high before completion of transaction <br>`3'b100` → Writing a Read-Only register <br>`3'b101` → s_clk_freq=0 |
+| `data_from_slave[15:0]` | Master to External | Received data (read from slave registers)|
+| `cs` | Master to Slave | Chip Select to Enable Transaction|
+| `sclk` | Master to Slave | SPI Clock for Synchronisation |
+| `miso` | Slave to Master | To receive Serial data from Slave|
+| `mosi` | Master to Slave | To transmit Serial data to Slave |
 Configuration inputs are captured in the Master IDLE state when `start` is asserted. A new `start` request is not accepted while `busy` is active.
 
 ---
@@ -164,7 +158,7 @@ The generated SPI clock uses the appropriate idle level and edge relationship fo
 
 The Master controls the active-low `cs` signal.
 
-The testbench defines the following timing parameters:
+The following timing parameters can be configured before synthesis of the design:
 
 ```text
 cs_high_ns
@@ -197,7 +191,7 @@ The timeout threshold is calculated from the transaction length and SPI clock ti
 
 ```text
 threshold_timeout =
-    3 × (data_count + 9) × 2 × half_count_sclk
+    3 × (data_count + 9) × 2 × (half_count_sclk+1)
 ```
 
 where:
@@ -222,7 +216,7 @@ The Master reports errors through `err_e[2:0]`.
 | `001` | Timeout | 2 |
 | `010` | Invalid register address | 3 |
 | `011` | Incorrect CS high | 1 |
-| `100` | Invalid operation | 4 |
+| `100` | Invalid operation (Writing a read-only register) | 4 |
 | `101` | SPI clock frequency = 0 | 5 |
 
 When multiple conditions are detected, the defined priority determines the reported error.
@@ -235,42 +229,28 @@ The Slave provides a register-based SPI peripheral.
 
 ### Interface
 
-```text
-Inputs:
-    clk
-    rst
-    bit_width
-    spi_mode[1:0]
-    cs
-    sclk
-    mosi
-
-Outputs:
-    miso
-    done
-```
-
-`clk`, `rst`, `spi_mode`, and `bit_width` are driven by the testbench. The Master and Slave therefore receive the same configuration and timing-control signals from the testbench.
-
-The SPI communication signals between Master and Slave are:
-
-```text
-cs
-sclk
-mosi
-miso
-```
+| Signal | Direction |Description |
+|---|---|---|
+| `clk` | System Clock to Slave | 50 MHz system clock (parameterised) |
+| `rst` | External to Slave | Active-low reset |
+| `spi_mode[1:0]` | External to Slave | SPI mode selection:<br>`2'b00` → Mode 0<br>`2'b01` → Mode 1<br>`2'b10` → Mode 2<br>`2'b11` → Mode 3 |
+| `bit_width` | External to Slave | `1'b0` = 8-bit <br> `1'b1` = 16-bit |
+| `done` | Slave to External | Transaction complete <br>`1'b0` → shift register is not ready to be sampled <br>`1'b1` → the shift register is ready to be sampled |
+| `cs` | Master to Slave | Chip Select to Enable Transaction|
+| `sclk` | Master to Slave | SPI Clock for Synchronisation |
+| `miso` | Slave to Master | To transmit Serial data to Master|
+| `mosi` | Master to Slave | To receive Serial data from Master|
 
 ---
 
 ## 12. Slave Register Map
 
-| Address | Register | Access | Description |
-|---|---|---|---|
-| `0x00` | Device ID | RO | Communication verification |
-| `0x01` | Control | R/W | Control register |
-| `0x02` | Status | R/W | Status register |
-| `0x03` | Data | R/W | Data register |
+| Address | Register | Access |
+|---|---|---|
+| `0x00` | Device ID | RO |
+| `0x01` | Control Register | R/W |
+| `0x02` | Status Register | R/W | 
+| `0x03` | Data Register | R/W |
 
 Device ID:
 
@@ -278,7 +258,7 @@ Device ID:
 16'hABCD
 ```
 
-The Device ID register provides a simple mechanism for verifying Master-Slave communication.
+All these register are simple registers to verify proper transaction.
 
 ---
 
@@ -310,8 +290,12 @@ The verification environment is implemented in:
 ```text
 tb/spi_top_tb.v
 ```
+### Master-Slave Testbench Block Diagram
+
+![SPI Master-Slave Block Diagram](https://github.com/user-attachments/assets/fa1a3b88-7410-4ae2-8f59-7fb7add0946d)
 
 The testbench generates stimulus, drives Master and Slave configuration, monitors transactions, checks expected results, and logs failures.
+`clk`, `rst`, `spi_mode`, and `bit_width` are driven by the testbench. The Master and Slave therefore receive the same configuration and timing-control signals from the testbench.
 
 ### Main Test Cases
 
@@ -326,7 +310,7 @@ The testbench generates stimulus, drives Master and Slave configuration, monitor
 | Reset | Reset during transaction |
 | Address | Invalid register address |
 | Timing | Incorrect CS / clock count |
-| Error | Timeout, invalid operation, zero frequency |
+| Error | invalid operation, zero frequency |
 | Random | Randomized transactions |
 
 The core waveform demonstrations can be organized as four cases per SPI mode:
