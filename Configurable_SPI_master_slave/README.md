@@ -173,7 +173,6 @@ These represent:
 2. Delay from CS assertion to the first SPI clock edge
 3. Delay from the final SPI clock edge to CS deassertion
 
-CS timing is also monitored for incorrect deassertion conditions.
 
 ---
 
@@ -191,8 +190,7 @@ data_count = 15  for 16-bit data
 The timeout threshold is calculated from the transaction length and SPI clock timing:
 
 ```text
-threshold_timeout =
-    3 × (data_count + 9) × 2 × (half_count_sclk+1)
+threshold_timeout = 3 × (data_count + 9) × 2 × (half_count_sclk+1)
 ```
 
 where:
@@ -248,10 +246,10 @@ The Slave provides a register-based SPI peripheral.
 
 | Address | Register | Access |
 |---|---|---|
-| `0x00` | Device ID | RO |
-| `0x01` | Control Register | R/W |
-| `0x02` | Status Register | R/W | 
-| `0x03` | Data Register | R/W |
+| `0x00` | Device ID | Read-Only |
+| `0x01` | Control Register | Read/Write |
+| `0x02` | Status Register | Rread/Write | 
+| `0x03` | Data Register | Read/Write |
 
 Device ID:
 
