@@ -73,10 +73,10 @@ The system clock is configurable before synthesis.
 
 |  Mode | CPOL | CPHA | Clock Idle | Sample Edge | Change Edge |
 |-------|------:------|------------|-------------|-------------|
-|   0   |  0   |   0  |    Low     |    Rising   | Falling |
-|   1   |  0   |   1  | Low | Falling | Rising |
-|   2   |  1   |   0  | High | Falling | Rising |
-|   3   |  1   |   1  | High | Rising | Falling |
+|   0   |  0   |   0  |    Low     |   Rising    |   Falling   |
+|   1   |  0   |   1  |    Low     |   Falling   |   Rising    |
+|   2   |  1   |   0  |    High    |   Falling   |   Rising    |
+|   3   |  1   |   1  |    High    |   Rising    |   Falling   |
 
 The Master uses mode-specific transfer states (`TRANS_M0`–`TRANS_M3`) to implement the required clock and data timing.
 
