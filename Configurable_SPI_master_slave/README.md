@@ -72,7 +72,7 @@ The system clock is configurable before synthesis.
 ## 4. SPI Modes
 
 |  Mode | CPOL | CPHA | Clock Idle | Sample Edge | Change Edge |
-|-------|------:------|------------|-------------|-------------|
+|-------|------|------|------------|-------------|-------------|
 |   0   |  0   |   0  |    Low     |   Rising    |   Falling   |
 |   1   |  0   |   1  |    Low     |   Falling   |   Rising    |
 |   2   |  1   |   0  |    High    |   Falling   |   Rising    |
