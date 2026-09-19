@@ -132,6 +132,7 @@ For a read, the Master transmits dummy data during the data phase and receives t
 | `sclk` | Master to Slave | SPI Clock for Synchronisation |
 | `miso` | Slave to Master | To receive Serial data from Slave|
 | `mosi` | Master to Slave | To transmit Serial data to Slave |
+
 Configuration inputs are captured in the Master IDLE state when `start` is asserted. A new `start` request is not accepted while `busy` is active.
 
 ---
