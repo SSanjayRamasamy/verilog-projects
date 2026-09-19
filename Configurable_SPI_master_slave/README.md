@@ -61,7 +61,6 @@ configurable-spi-master-slave/
 | SPI Modes                   |            0–3           |
 | Data Width                  |       8 / 16 bits        |
 | SPI Clock Range             | 1 Hz to System Clock / 4 (eg. for system clock=50Mhz the maximum spi clock frequency is 50Mhz/4 ie. 12.5Mhz) |
-| Maximum SPI Clock at 50 MHz |         12.5 MHz         |
 | Chip Select                 |        Active Low        |
 | Communication               |        Full Duplex       |
 
@@ -119,7 +118,11 @@ For a read, the Master transmits dummy data during the data phase and receives t
 | `clk` | 50 MHz system clock (Parameterised)|
 | `rst` | Active-low reset |
 | `start` | Starts a transaction |
-| `spi_mode[1:0]` | SPI mode selection |
+| `spi_mode[1:0]` | SPI mode selection 
+                    2'b00 → Mode 0
+                    2'b01 → Mode 1
+                    2'b10 → Mode 2
+                    2'b11 → Mode 3|
 | `bit_width` | `0` = 8-bit, `1` = 16-bit |
 | `s_clk_freq[24:0]` | Requested SPI clock frequency |
 | `data_to_slave[15:0]` | Write data |
