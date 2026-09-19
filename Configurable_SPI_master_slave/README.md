@@ -312,12 +312,52 @@ The testbench generates stimulus, drives Master and Slave configuration, monitor
 | Error | invalid operation, zero frequency |
 | Random | Randomized transactions |
 
-The core waveform demonstrations can be organized as four cases per SPI mode:
+## 15. Simulation Waveforms
 
-1. 8-bit write
-2. 8-bit read
-3. 16-bit write
-4. 16-bit read
+The core waveform demonstrations can be organized as two cases per SPI mode:
+
+1. 8-bit write and read
+2. 16-bit write and read
+
+### SPI Mode 0
+
+1. 8-bit Transactions
+
+![Mode 0 - 8-bit Write and read](results/simulation_waveforms/spi_mode_0/8_bit_write_read.png)
+
+2. 16-bit Transactions
+
+![Mode 0 - 16-bit Write and read](results/simulation_waveforms/spi_mode_0/16_bit_write_read.png)
+
+### SPI Mode 1
+
+1. 8-bit Transactions
+
+![Mode 1 - 8-bit Write and read](results/simulation_waveforms/spi_mode_1/8_bit_write_read.png)
+
+2. 16-bit Transactions
+
+![Mode 1 - 16-bit Write and read](results/simulation_waveforms/spi_mode_1/16_bit_write_read.png)
+
+### SPI Mode 2
+
+1. 8-bit Transactions
+
+![Mode 2 - 8-bit Write and read](results/simulation_waveforms/spi_mode_2/8_bit_write_read.png)
+
+2. 16-bit Transactions
+
+![Mode 2 - 16-bit Write and read](results/simulation_waveforms/spi_mode_2/16_bit_write_read.png)
+
+### SPI Mode 3
+
+1. 8-bit Transactions
+
+![Mode 3 - 8-bit Write and read](results/simulation_waveforms/spi_mode_3/8_bit_write_read.png)
+
+2. 16-bit Transactions
+
+![Mode 3 - 16-bit Write and read](results/simulation_waveforms/spi_mode_3/16_bit_write_read.png)
 
 ---
 
