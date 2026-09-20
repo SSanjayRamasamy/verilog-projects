@@ -250,7 +250,7 @@ The Slave provides a register-based SPI peripheral.
 
 ## 13. FSM Diagram of Slave
 
-![SPI Slave FSM Diagram](https://github.com/user-attachments/assets/f92818e2-e46a-4f0a-acfb-cd1e5225ba9d)
+![SPI Slave FSM Diagram](https://github.com/user-attachments/assets/5d7b3b5b-3003-4c00-b60d-553d7b319dc2)
 
 ---
 
