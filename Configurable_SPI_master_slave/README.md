@@ -222,7 +222,11 @@ When multiple conditions are detected, the defined priority determines the repor
 
 ---
 
-## 11. SPI Slave
+## 11. FSM Diagram of Master
+
+
+
+## 12. SPI Slave
 
 The Slave provides a register-based SPI peripheral.
 
@@ -242,7 +246,9 @@ The Slave provides a register-based SPI peripheral.
 
 ---
 
-## 12. Slave Register Map
+## 13. FSM Diagram of Slave
+
+## 14. Slave Register Map
 
 | Address | Register | Access |
 |---|---|---|
@@ -261,7 +267,7 @@ All these register are simple registers to verify proper transaction.
 
 ---
 
-## 13. Read and Write Operations
+## 14. Read and Write Operations
 
 ### Read
 
@@ -282,7 +288,7 @@ The Slave decodes the address and updates the corresponding writable register.
 
 ---
 
-## 14. Verification Environment
+## 15. Verification Environment
 
 The verification environment is implemented in:
 
@@ -312,7 +318,7 @@ The testbench generates stimulus, drives Master and Slave configuration, monitor
 | Error | invalid operation, zero frequency |
 | Random | Randomized transactions |
 
-## 15. Simulation Waveforms
+## 16. Simulation Waveforms
 
 The core waveform demonstrations can be organized as two cases per SPI mode:
 
@@ -361,7 +367,7 @@ The core waveform demonstrations can be organized as two cases per SPI mode:
 
 ---
 
-## 16. Automated Checking
+## 17. Automated Checking
 
 The testbench checks:
 
@@ -383,7 +389,7 @@ results/simulation.log
 
 ---
 
-## 17. Synthesis Results
+## 18. Synthesis Results
 
 ### Vivado — SPI Master
 
@@ -429,14 +435,14 @@ results/simulation.log
 
 ---
 
-## 18. Tools
+## 19. Tools
 
 - Xilinx Vivado
 - Cadence Genus
 
 ---
 
-## 19. Limitation
+## 20. Limitation
 
 - Due to integer division the SPI clock frequency might be greater than the required SPI clock frquency if the System clock frequency is not divisible by spi clock frequency.
 - Minimum four system clock cylces are required for every spi clock for proper fsm operation.
@@ -447,7 +453,7 @@ results/simulation.log
 
 ---
 
-## 20. Future Improvements
+## 21. Future Improvements
 
 - SystemVerilog Assertions
 - Functional coverage
@@ -459,7 +465,7 @@ results/simulation.log
 
 ---
 
-## 21. Author
+## 22. Author
 
 **S Sanjay Ramasamy**  
 B.Tech Electrical and Electronics Engineering, VIT Vellore (final-year)

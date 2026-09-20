@@ -1,31 +1,6 @@
 `timescale 1ns / 1ps
 
 
-`timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 11.09.2026 11:12:09
-// Design Name: 
-// Module Name: spi_slave
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
 
 module spi_slave (input clk, rst, sclk, mosi, cs, bitwidth,input [1:0] spi_mode, output reg miso, done);
 

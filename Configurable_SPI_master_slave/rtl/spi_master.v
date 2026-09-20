@@ -1,3 +1,5 @@
+`timescale 1ns / 1ps
+
 module spi_master #(parameter clk_freq=100000000, cs_high_ns=100, cs_negedge_to_clk_edge_ns=200, clk_edge_to_cs_high_ns=100)(
         input clk, rst, start, miso, bit_width, 
         input [1:0] spi_mode,
