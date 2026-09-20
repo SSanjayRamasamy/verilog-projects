@@ -224,7 +224,9 @@ When multiple conditions are detected, the defined priority determines the repor
 
 ## 11. FSM Diagram of Master
 
+![SPI Master FSM Diagram](https://github.com/user-attachments/assets/f889295c-0a04-45e3-86a2-4e56df56a6e4)
 
+---
 
 ## 12. SPI Slave
 
@@ -247,6 +249,10 @@ The Slave provides a register-based SPI peripheral.
 ---
 
 ## 13. FSM Diagram of Slave
+
+![SPI Slave FSM Diagram](https://github.com/user-attachments/assets/f92818e2-e46a-4f0a-acfb-cd1e5225ba9d)
+
+---
 
 ## 14. Slave Register Map
 
@@ -317,6 +323,8 @@ The testbench generates stimulus, drives Master and Slave configuration, monitor
 | Timing | Incorrect CS / clock count |
 | Error | invalid operation, zero frequency |
 | Random | Randomized transactions |
+
+---
 
 ## 16. Simulation Waveforms
 
